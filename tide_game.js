@@ -1,5 +1,9 @@
-function start_tide() {
-  createPaddle();
+function onMouseMove (e) {
+    var x = e.clientX;
+    findPaddle().style.left = (x-75) + 'px';
+};
+function findPaddle(){
+	return document.getElementById('paddle')
 }
 /*
  - create paddle
