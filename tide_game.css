@@ -3,11 +3,16 @@ div {
 }
 
 #paddle {
-  background-color: red;
-  width: 100px;
-  height: 20px;
-  border: 1px solid black;
+  width: 150px;
+  height: 15px;
   position: absolute;
   left: 100px;
   bottom: 150px;
+}
+#ball {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 100px;
+  top: 150px;
 }

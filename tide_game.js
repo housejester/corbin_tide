@@ -13,8 +13,3 @@ function start_tide() {
  - detect game over
  - game over screen 
 */
-var createPaddle = function(){
-	var paddle = document.createElement('div');
-	paddle.id = 'paddle';
-	document.body.appendChild(paddle);
-}
