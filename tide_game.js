@@ -1,5 +1,5 @@
-var ballXSpeed = 10;
-var ballYSpeed = 10;
+var ballXSpeed = 5;
+var ballYSpeed = 5;
 function onMouseMove (e) {
     var x = e.clientX;
     findPaddle().style.left = (x-75) + 'px';
@@ -11,7 +11,14 @@ function findPaddle(){
 
 function gameLoop(){
 	moveBall();
-	//right edge
+	edgeBounce();
+	paddleBounce();
+	// collision detection (walls & paddle)
+	// if game over, cancel the gameLoopInterval with clearInterval(gameLoopInterval)
+}
+function edgeBounce(){
+	var ball = findBall();
+		//right edge
 	if(parseInt(ball.style.left) + 20 >= document.body.clientWidth){
 		ball.style.left = (document.body.clientWidth - 21) + 'px'
 		ballXSpeed = -ballXSpeed
@@ -30,10 +37,21 @@ function gameLoop(){
 		ball.style.top = ball.style.top = (document.body.clientHeight - 21) + 'px'
 		ballYSpeed = -ballYSpeed
 	}
-	// collision detection (walls & paddle)
-	// if game over, cancel the gameLoopInterval with clearInterval(gameLoopInterval)
 }
-
+function paddleBounce(){
+	var ball = findBall();
+	var paddle = findPaddle();
+	var paddleRect = paddle.getBoundingClientRect()
+	var ballRect = ball.getBoundingClientRect()
+	if(
+		ballRect.bottom >= paddleRect.top 
+		&& (
+			(ballRect.right >= paddleRect.left && ballRect.right <= paddleRect.right) 
+			|| (ballRect.left <= paddleRect.right && ballRect.left >= paddleRect.left)
+		)){
+		ballYSpeed = -ballYSpeed
+	}
+}
 function findBall(){
 	return document.getElementById('ball');
 }
@@ -45,7 +63,6 @@ function moveBall(){
 	ball.style.top = top + ballYSpeed + 'px';
 }
 var gameLoopInterval = setInterval(gameLoop, 1000/60)
-
 /*
  * create paddle
  * move paddle
