@@ -1,5 +1,12 @@
-div {
-  color: green;
+#GameOver {
+  display: none;
+  color: Red;
+  font-size: 39px;
+  margin:auto;
+  margin-top: 200px;
+  width:50%;
+  text-align: center;
+  height:10%;
 }
 
 #paddle {

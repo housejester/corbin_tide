@@ -13,6 +13,10 @@ function gameLoop(){
 	moveBall();
 	edgeBounce();
 	paddleBounce();
+	if(isGameOver()){
+		clearInterval(gameLoopInterval)
+		document.getElementById('GameOver').style.display = "block"
+	}
 	// collision detection (walls & paddle)
 	// if game over, cancel the gameLoopInterval with clearInterval(gameLoopInterval)
 }
@@ -32,10 +36,6 @@ function edgeBounce(){
 	else if(parseInt(ball.style.left) <= 0){
 		ball.style.left = 1 + 'px'
 		ballXSpeed = -ballXSpeed
-	}
-	else if(parseInt(ball.style.top) + 20 >= document.body.clientHeight){
-		ball.style.top = ball.style.top = (document.body.clientHeight - 21) + 'px'
-		ballYSpeed = -ballYSpeed
 	}
 }
 function paddleBounce(){
@@ -62,16 +62,24 @@ function moveBall(){
 	ball.style.left = left + ballXSpeed + 'px';
 	ball.style.top = top + ballYSpeed + 'px';
 }
+function isGameOver(){
+	var ball = findBall();
+	var ballRect = ball.getBoundingClientRect();
+	if(ballRect.bottom >= document.body.clientHeight){
+		return true
+	}
+	return false
+}
 var gameLoopInterval = setInterval(gameLoop, 1000/60)
 /*
  * create paddle
  * move paddle
  * create ball
  * move ball
- - bounce ball off screen edge
- - bounce ball off paddle
+ * bounce ball off screen edge
+ * bounce ball off paddle
  - count score
  - display score
- - detect game over
+ * detect game over
  - game over screen 
 */
