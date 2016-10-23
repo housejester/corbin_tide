@@ -1,5 +1,6 @@
 var ballXSpeed = 5;
 var ballYSpeed = 5;
+var score = 0
 function onMouseMove (e) {
     var x = e.clientX;
     findPaddle().style.left = (x-75) + 'px';
@@ -12,7 +13,10 @@ function findPaddle(){
 function gameLoop(){
 	moveBall();
 	edgeBounce();
-	paddleBounce();
+	if(paddleBounce()){
+		score += 1;
+		document.getElementById("scoreValue").innerText = score;
+	}
 	if(isGameOver()){
 		clearInterval(gameLoopInterval)
 		document.getElementById('GameOver').style.display = "block"
@@ -49,8 +53,10 @@ function paddleBounce(){
 			(ballRect.right >= paddleRect.left && ballRect.right <= paddleRect.right) 
 			|| (ballRect.left <= paddleRect.right && ballRect.left >= paddleRect.left)
 		)){
-		ballYSpeed = -ballYSpeed
+		ballYSpeed = -ballYSpeed;
+		return true
 	}
+	return false
 }
 function findBall(){
 	return document.getElementById('ball');
@@ -81,5 +87,5 @@ var gameLoopInterval = setInterval(gameLoop, 1000/60)
  - count score
  - display score
  * detect game over
- - game over screen 
+ * display game over screen 
 */
