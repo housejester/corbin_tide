@@ -8,7 +8,9 @@
   text-align: center;
   height:10%;
 }
-
+#redo {
+  color: Green;
+}
 #paddle {
   width: 150px;
   height: 15px;

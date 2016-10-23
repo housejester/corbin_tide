@@ -9,7 +9,14 @@ function onMouseMove (e) {
 function findPaddle(){
 	return document.getElementById('paddle');
 }
-
+function restartGame(){
+	var ball = findBall()
+	ball.style.top = "0px"
+	gameLoopInterval = setInterval(gameLoop, 1000/60)
+	document.getElementById('GameOver').style.display = "none"
+	score = 0
+	document.getElementById("scoreValue").innerText = score;
+}
 function gameLoop(){
 	moveBall();
 	edgeBounce();
@@ -49,6 +56,7 @@ function paddleBounce(){
 	var ballRect = ball.getBoundingClientRect()
 	if(
 		ballRect.bottom >= paddleRect.top 
+		&& ballRect.top <= paddleRect.bottom
 		&& (
 			(ballRect.right >= paddleRect.left && ballRect.right <= paddleRect.right) 
 			|| (ballRect.left <= paddleRect.right && ballRect.left >= paddleRect.left)
@@ -84,8 +92,8 @@ var gameLoopInterval = setInterval(gameLoop, 1000/60)
  * move ball
  * bounce ball off screen edge
  * bounce ball off paddle
- - count score
- - display score
+ * count score
+ * display score
  * detect game over
  * display game over screen 
 */
